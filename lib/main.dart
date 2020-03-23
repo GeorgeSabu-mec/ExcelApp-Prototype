@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './UI/Home/home.dart';
 import './UI/Timeline/timeline.dart';
 import './UI/EventPage/eventPage.dart';
-import 'UI/EventPage/eventPage.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
