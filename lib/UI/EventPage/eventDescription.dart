@@ -4,10 +4,13 @@ Widget getEventDetails(var eventDetails, var _minpadding) {
   return Hero(
     tag: 'EventDescription',
     child: Padding(
-        padding: EdgeInsets.only(left: _minpadding * 8, top: _minpadding * 3),
+        padding: EdgeInsets.only(left: _minpadding * 8, top: _minpadding ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+
               //Event Time Details
               children: <Widget>[
                 Icon(
@@ -23,6 +26,7 @@ Widget getEventDetails(var eventDetails, var _minpadding) {
 
             //Event Venue Details
             Row(
+               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Icon(
                   Icons.add_location,
@@ -37,6 +41,7 @@ Widget getEventDetails(var eventDetails, var _minpadding) {
 
             //EventContacts
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Icon(
                   Icons.phone,
@@ -51,6 +56,7 @@ Widget getEventDetails(var eventDetails, var _minpadding) {
 
             //Event Fee Details
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Icon(
                   Icons.label,

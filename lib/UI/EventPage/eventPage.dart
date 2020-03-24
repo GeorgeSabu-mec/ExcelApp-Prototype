@@ -2,22 +2,8 @@ import 'package:excelapp_prototype/UI/EventPage/eventDescription.dart';
 import 'package:flutter/material.dart';
 import 'moreDetailsPage.dart';
 import 'backgroundImage.dart';
+import 'constants.dart';
 
-//Dictionary contains details of the event
-var eventDetails = {
-  'ImageDir': './assets/kryptos.png',
-  'Name': 'Kryptos',
-  'Time': '12th November 2019 | 12pm -2pm',
-  'Venue': 'Room No.301-304',
-  'Contact': '+91 90642658845',
-  'Fee': '₹100',
-  'About':
-      'Excel 2019 presents Treasure Hunt , a union of mutiple diverse rounds designed to test the skills of contestants. Be it a quest around Kochi, make campus or perhaps even around Kochi, make sure you are prepared! Get ready to accomplishdifferent tasks to be declared the winner. Spread over two days , the event is guarenteed to push you to your limts',
-  'Format': 'This is the format of the event',
-  'Rules': 'This is the rules of the event',
-  'Contacts': 'This is the contact details of the event',
-  'isLiked': 'false'
-};
 
 
 
@@ -34,11 +20,10 @@ class EventPageState extends State<EventPage> {
   //All paddings made as multiples of _minpadding
 final _minpadding = 5.0;
 
-//Fonts Used
-String fontBold='Quicksand-Bold';
-String fontLight='Quicksand-Light';
   @override
   Widget build(BuildContext context) {
+    var deviceHeight=MediaQuery.of(context).size.height;
+    var deviceWidth=MediaQuery.of(context).size.width;
     return Scaffold(
         body: Stack(children: <Widget>[
       //Background Image
@@ -48,13 +33,15 @@ String fontLight='Quicksand-Light';
         Color.fromRGBO(0, 0, 0, .8)
       ]),
       Container(
-          child: ListView(
+          child: Column(
         children: <Widget>[
           Padding(
               padding:
-                  EdgeInsets.only(left: _minpadding, top: _minpadding * 61),
+                  EdgeInsets.only(left: _minpadding, top:deviceHeight*0.5),
               child: Row(
                 children: <Widget>[
+
+                  //BackButton
                   IconButton(
                     icon: new Icon(Icons.arrow_back),
                     iconSize: 40.0,
@@ -66,6 +53,7 @@ String fontLight='Quicksand-Light';
                   ),
 
                   //Event Name Details
+                  Expanded(child: 
                   Hero(
                     tag: 'EventName',
                     child: Text(eventDetails['Name'],
@@ -76,35 +64,35 @@ String fontLight='Quicksand-Light';
                             fontSize: 40.0,
                             fontWeight: FontWeight.w800,
                             color: Colors.white)),
-                  ),
-                  Container(padding: EdgeInsets.only(left: _minpadding * 24)),
+                  ),),
+              
                   Hero(
                     tag: 'LikeButton',
-                    child: likeButton(eventDetails['isLiked']),
+                    child: Padding(padding: EdgeInsets.all(_minpadding*2),
+                    child:  likeButton(eventDetails['isLiked']),
+                    ),
                   ),
                 ],
               )),
 
           //Event Details
           getEventDetails(eventDetails, _minpadding),
-          Container(
-              padding: EdgeInsets.only(top: _minpadding * 14),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          SizedBox(height:deviceHeight*0.1 ),
+          Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
 
                   //Bottom buttons
                   ButtonTheme(
-                    minWidth: _minpadding * 36,
-                    height: _minpadding * 8,
+                    minWidth: deviceWidth*0.4,
+                    height: _minpadding * 7,
                     child: FlatButton(
                       shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(16.0),
                           side: BorderSide(color: Colors.white)),
                       color: Color.fromRGBO(21, 18, 41, 1),
                       textColor: Colors.white,
-                      padding: EdgeInsets.all(_minpadding * 2),
+                      padding: EdgeInsets.all(_minpadding *2),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -115,7 +103,7 @@ String fontLight='Quicksand-Light';
                       child: Text(
                         "More Details",
                         style: TextStyle(
-                          fontFamily: 'Quicksand-light',
+                          fontFamily: fontLight,
                           decoration: TextDecoration.none,
                           fontSize: 20.0,
                         ),
@@ -123,8 +111,8 @@ String fontLight='Quicksand-Light';
                     ),
                   ),
                   ButtonTheme(
-                    minWidth: _minpadding * 36,
-                    height: _minpadding * 8,
+                    minWidth: deviceWidth*.4,
+                    height: _minpadding * 7,
                     child: FlatButton(
                       shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(16.0),
@@ -136,7 +124,7 @@ String fontLight='Quicksand-Light';
                       child: Text(
                         "Book Tickets",
                         style: TextStyle(
-                          fontFamily: 'Quicksand-light',
+                          fontFamily: fontLight,
                           decoration: TextDecoration.none,
                           fontSize: 20.0,
                         ),
@@ -144,8 +132,8 @@ String fontLight='Quicksand-Light';
                     ),
                   ),
                 ],
-              )),
-          Container(margin: EdgeInsets.only(top: _minpadding * 50)),
+              ),
+  
 
           //Invisible card to utilise hero widget and animate it when more details is clicked
           Hero(

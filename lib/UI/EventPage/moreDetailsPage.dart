@@ -1,7 +1,7 @@
 import 'package:excelapp_prototype/UI/EventPage/backgroundImage.dart';
 import 'package:excelapp_prototype/UI/EventPage/eventDescription.dart';
 import 'package:flutter/material.dart';
-import 'eventPage.dart';
+import 'constants.dart';
 
 class MoreDetails extends StatefulWidget {
   @override
@@ -11,52 +11,51 @@ class MoreDetails extends StatefulWidget {
 }
 
 class MoreDetailsState extends State<MoreDetails> {
+  
+  //Stores the current active tab in more details
+  String activeTab = 'About';
 
   //All paddings made as multiples of _minpadding
-  final _minpadding = 5.0;
-
-//Fonts Used
-String fontBold='Quicksand-Bold';
-String fontLight='Quciksand-Light';
-
-//Stores the current active tab in more details
-  String activeTab = 'About';
+  var _minpadding = 5.0;
 
   @override
   Widget build(BuildContext context) {
+    var deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         body: Stack(children: <Widget>[
+
       // Background Image
       getBackgroundImage(eventDetails, [
         Color.fromRGBO(0, 0, 0, 1),
-        Color.fromRGBO(23, 18, 41, .6),
+        Color.fromRGBO(23, 18, 41, 0.8),
         Color.fromRGBO(0, 0, 0, .6)
       ]),
       Container(
           child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-              padding:
-                  EdgeInsets.only(left: _minpadding, top: _minpadding * 28.8),
+              padding: EdgeInsets.only(
+                  left: _minpadding * 7, top: deviceHeight * 0.2),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Container(
-                      padding: EdgeInsets.only(
-                          left: _minpadding * 8, top: _minpadding * 5)),
-
+      
                   //Event Name Details
-                  Hero(
-                    tag: 'EventName',
-                    child: Text(eventDetails['Name'],
-                        style: TextStyle(
-                            decoration: TextDecoration.none,
-                            fontFamily: fontBold,
-                            height: 1.0,
-                            fontSize: 40.0,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white)),
+                  Expanded(
+                    child: Hero(
+                      tag: 'EventName',
+                      child: Text(eventDetails['Name'],
+                          style: TextStyle(
+                              decoration: TextDecoration.none,
+                              fontFamily: fontBold,
+                              height: 1.0,
+                              fontSize: 40.0,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white)),
+                    ),
                   ),
-                  Container(padding: EdgeInsets.only(left: _minpadding * 24)),
 
                   //Like Button
                   Hero(
@@ -71,7 +70,10 @@ String fontLight='Quciksand-Light';
                         Material(
                             type: MaterialType.transparency,
                             child: toHeroContext.widget),
-                    child: likeButton(eventDetails['isLiked']),
+                    child: Padding(
+                      padding: EdgeInsets.all(_minpadding),
+                      child: likeButton(eventDetails['isLiked']),
+                    ),
                   ),
                 ],
               )),
@@ -79,7 +81,7 @@ String fontLight='Quciksand-Light';
           //EventDetails
           getEventDetails(eventDetails, _minpadding),
 
-          Container(padding: EdgeInsets.only(top: _minpadding * 5)),
+          SizedBox(height: _minpadding * 2),
 
           //More details card
           Expanded(
@@ -102,18 +104,20 @@ String fontLight='Quciksand-Light';
                               Container(
                                   padding:
                                       EdgeInsets.only(top: _minpadding * 4)),
-                              Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-
-                                    //Tabs in the More Details section
-                                    getTab('About', activeTab),
-                                    getTab('Format', activeTab),
-                                    getTab('Rules', activeTab),
-                                    getTab('Contacts', activeTab),
-                                  ]),
-                              Container(
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: <Widget>[
+                                      //Tabs in the More Details section
+                                      getTab('About', activeTab),
+                                      getTab('Format', activeTab),
+                                      getTab('Rules', activeTab),
+                                      getTab('Contacts', activeTab),
+                                    ]),
+                              ),
+                              Padding(
                                   padding: EdgeInsets.only(
                                       top: _minpadding * 3,
                                       left: _minpadding * 6,
@@ -124,7 +128,7 @@ String fontLight='Quciksand-Light';
                                     style: TextStyle(
                                       fontFamily: fontLight,
                                       color: Color.fromRGBO(23, 18, 41, 1),
-                                      fontSize: 16.0,
+                                      fontSize: 17.0,
                                       fontWeight: FontWeight.w300,
                                     ),
                                   ))
@@ -173,7 +177,7 @@ String fontLight='Quciksand-Light';
       return Text(text,
           style: TextStyle(
               height: 1.0,
-              fontSize: 20.0,
+              fontSize: 21.0,
               fontFamily: fontBold,
               fontWeight: FontWeight.w600,
               color: Color.fromRGBO(23, 18, 41, 1)));
@@ -181,13 +185,13 @@ String fontLight='Quciksand-Light';
       return Text(text,
           style: TextStyle(
               height: 1.0,
-              fontSize: 20.0,
+              fontSize: 21.0,
               fontFamily: fontLight,
               fontWeight: FontWeight.w400,
               color: Color.fromRGBO(23, 18, 41, 0.4)));
   }
 
-  //Like Button defenition
+  //Like button functionality
   Widget likeButton(String isLiked) {
     bool likeState = isLiked == 'true';
     return Container(
