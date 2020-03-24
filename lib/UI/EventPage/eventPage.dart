@@ -33,7 +33,7 @@ final _minpadding = 5.0;
         Color.fromRGBO(0, 0, 0, .8)
       ]),
       Container(
-          child: Column(
+          child: ListView(
         children: <Widget>[
           Padding(
               padding:

@@ -10,7 +10,7 @@ Widget getBackgroundImage(var eventDetails, List<Color> gradient) {
         decoration: BoxDecoration(
           image: DecorationImage(
               image: NetworkImage(eventDetails['ImageDir']),
-              fit: BoxFit.fitHeight),
+              fit: BoxFit.cover),
         ),
       ),
     ),

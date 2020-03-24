@@ -20,9 +20,9 @@ class MoreDetailsState extends State<MoreDetails> {
 
   @override
   Widget build(BuildContext context) {
-    var deviceHeight = MediaQuery.of(context).size.height;
+    double deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-        body: Stack(children: <Widget>[
+        body:Stack(children: <Widget>[
 
       // Background Image
       getBackgroundImage(eventDetails, [
@@ -30,16 +30,15 @@ class MoreDetailsState extends State<MoreDetails> {
         Color.fromRGBO(23, 18, 41, 0.8),
         Color.fromRGBO(0, 0, 0, .6)
       ]),
+
       Container(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
         children: <Widget>[
           Padding(
               padding: EdgeInsets.only(
                   left: _minpadding * 7, top: deviceHeight * 0.2),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
       
                   //Event Name Details
@@ -83,9 +82,12 @@ class MoreDetailsState extends State<MoreDetails> {
 
           SizedBox(height: _minpadding * 2),
 
-          //More details card
-          Expanded(
-              child: Hero(
+          // More details card
+          Container(
+            height: deviceHeight * .57,
+            padding: EdgeInsets.only(top:_minpadding),
+              child: 
+              Hero(
                   tag: 'Card',
                   child: Card(
                       elevation: 5,
@@ -94,16 +96,9 @@ class MoreDetailsState extends State<MoreDetails> {
                               topLeft: Radius.circular(45),
                               topRight: Radius.circular(45))),
                       child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular((45)),
-                                  topRight: Radius.circular(45))),
                           child: Column(
                             children: <Widget>[
-                              Container(
-                                  padding:
-                                      EdgeInsets.only(top: _minpadding * 4)),
+                              SizedBox(height:_minpadding),
                               SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
@@ -117,13 +112,17 @@ class MoreDetailsState extends State<MoreDetails> {
                                       getTab('Contacts', activeTab),
                                     ]),
                               ),
-                              Padding(
+                              Column(
+                                children: <Widget>[
+                                  Padding(
                                   padding: EdgeInsets.only(
                                       top: _minpadding * 3,
                                       left: _minpadding * 6,
                                       right: _minpadding * 6,
                                       bottom: _minpadding * 3),
-                                  child: Text(
+                                  child: 
+                                  
+                                  Text(
                                     eventDetails[activeTab],
                                     style: TextStyle(
                                       fontFamily: fontLight,
@@ -131,9 +130,13 @@ class MoreDetailsState extends State<MoreDetails> {
                                       fontSize: 17.0,
                                       fontWeight: FontWeight.w300,
                                     ),
-                                  ))
+                                
+                                  )),
+                                ]
+                              )
+                                
                             ],
-                          )))))
+                          ))))),
         ],
       )),
     ]));
